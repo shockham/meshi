@@ -35,6 +35,10 @@ fn main() {
             "wil",
             load_texture!("../assets/wil.png", &game.renderer.display)
         );
+        game.renderer.shaders.textures.insert(
+            "jqa",
+            load_texture!("../assets/junior_qa.png", &game.renderer.display)
+        );
 
             game.renderer
                 .lighting
@@ -54,7 +58,7 @@ fn main() {
             .material(
                 MaterialBuilder::default()
                     .shader_name("points".to_string())
-                    .texture_name(Some("wil".to_string()))
+                    .texture_name(Some("jqa".to_string()))
                     .build()
                     .unwrap(),
             )
@@ -62,7 +66,7 @@ fn main() {
                 TransformBuilder::default()
                     .pos((0f32, 0f32, 0f32))
                     .rot((0f32, 0f32, 0f32, 1f32))
-                    .scale((1f32, 1f32, 1f32))
+                    .scale((5f32, 5f32, 5f32))
                     .build()
                     .unwrap(),
             ])
@@ -81,7 +85,7 @@ fn main() {
             )
             .instance_transforms(vec![
                 TransformBuilder::default()
-                    .pos((0f32, 3f32, 0f32))
+                    .pos((0f32, 10f32, 0f32))
                     .rot((0f32, 0f32, 0f32, 1f32))
                     .scale((10f32, 10f32, 1f32))
                     .build()
