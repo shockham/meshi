@@ -13,7 +13,7 @@ pub fn add_custom_shaders(game: &mut Game<DefaultTag>) {
         texture::gl330::FRAG,
         points::GEOM,
         points::TESS_CONTROL,
-        default::gl330::TESS_EVAL,
+        points::TESS_EVAL,
     );
 }
 
@@ -21,6 +21,8 @@ pub fn add_custom_shaders(game: &mut Game<DefaultTag>) {
 mod points {
     /// tessellation control shader
     pub const TESS_CONTROL: &'static str = include_str!("./tess_control.glsl");
-    // geometry shader
+    /// tessellation evaluation shader
+    pub const TESS_EVAL: &'static str = include_str!("./tess_eval.glsl");
+    /// geometry shader
     pub const GEOM: &'static str = include_str!("./geom.glsl");
 }

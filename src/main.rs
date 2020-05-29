@@ -14,8 +14,6 @@ fn main() {
     let (mut game, event_loop) = Game::<DefaultTag>::new();
     let mut debug_mode = false;
 
-
-
     // initial setup
     {
         shaders::add_custom_shaders(&mut game);
@@ -39,16 +37,20 @@ fn main() {
             "jqa",
             load_texture!("../assets/junior_qa.png", &game.renderer.display)
         );
+        game.renderer.shaders.textures.insert(
+            "pete",
+            load_texture!("../assets/petey.png", &game.renderer.display)
+        );
 
-            game.renderer
-                .lighting
-                .add_directional_light("one".to_string(), (-0.2, 0.8, 0.1));
-            game.renderer
-                .lighting
-                .add_directional_light("two".to_string(), (1.0, 0.0, 0.0));
-            game.renderer
-                .lighting
-                .add_directional_light("three".to_string(), (0.0, 1.0, 0.0));
+        game.renderer
+            .lighting
+            .add_directional_light("one".to_string(), (-0.2, 0.8, 0.1));
+        game.renderer
+            .lighting
+            .add_directional_light("two".to_string(), (1.0, 0.0, 0.0));
+        game.renderer
+            .lighting
+            .add_directional_light("three".to_string(), (0.0, 1.0, 0.0));
     }
 
     // create a vector of render items
