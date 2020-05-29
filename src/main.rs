@@ -4,14 +4,48 @@ use caper::types::{RenderItemBuilder, TransformBuilder, MaterialBuilder, Default
 use caper::game::*;
 use caper::imgui::Ui;
 use caper::input::Key;
-use caper::mesh::gen_sphere;
+use caper::mesh::{gen_sphere, gen_quad};
 use caper::posteffect::PostShaderOptionsBuilder;
 use caper::utils::handle_fp_inputs;
+use caper::load_texture;
 
 
 fn main() {
     let (mut game, event_loop) = Game::<DefaultTag>::new();
     let mut debug_mode = false;
+
+
+
+    // initial setup
+    {
+        shaders::add_custom_shaders(&mut game);
+
+        game.renderer.post_effect.post_shader_options = PostShaderOptionsBuilder::default()
+            .chrom_amt(1f32)
+            .blur_amt(2f32)
+            .blur_radius(2f32)
+            .bokeh(true)
+            .bokeh_focal_depth(0.45f32)
+            .bokeh_focal_width(0.4f32)
+            .color_offset((1f32, 1f32, 1f32, 1f32))
+            .build()
+            .unwrap();
+
+        game.renderer.shaders.textures.insert(
+            "wil",
+            load_texture!("../assets/wil.png", &game.renderer.display)
+        );
+
+            game.renderer
+                .lighting
+                .add_directional_light("one".to_string(), (-0.2, 0.8, 0.1));
+            game.renderer
+                .lighting
+                .add_directional_light("two".to_string(), (1.0, 0.0, 0.0));
+            game.renderer
+                .lighting
+                .add_directional_light("three".to_string(), (0.0, 1.0, 0.0));
+    }
 
     // create a vector of render items
     game.add_render_item(
@@ -20,7 +54,7 @@ fn main() {
             .material(
                 MaterialBuilder::default()
                     .shader_name("points".to_string())
-                    .texture_name(Some("default".to_string()))
+                    .texture_name(Some("wil".to_string()))
                     .build()
                     .unwrap(),
             )
@@ -37,11 +71,11 @@ fn main() {
     );
     game.add_render_item(
         RenderItemBuilder::default()
-            .vertices(gen_sphere())
+            .vertices(gen_quad())
             .material(
                 MaterialBuilder::default()
-                    .shader_name("texture".to_string())
-                    .texture_name(Some("default".to_string()))
+                    .shader_name("points".to_string())
+                    .texture_name(Some("wil".to_string()))
                     .build()
                     .unwrap(),
             )
@@ -49,29 +83,13 @@ fn main() {
                 TransformBuilder::default()
                     .pos((0f32, 3f32, 0f32))
                     .rot((0f32, 0f32, 0f32, 1f32))
-                    .scale((1f32, 1f32, 1f32))
+                    .scale((10f32, 10f32, 1f32))
                     .build()
                     .unwrap(),
             ])
             .build()
             .unwrap(),
     );
-
-    // initial setup
-    {
-        shaders::add_custom_shaders(&mut game);
-
-        game.renderer.post_effect.post_shader_options = PostShaderOptionsBuilder::default()
-            .chrom_amt(1f32)
-            .blur_amt(2f32)
-            .blur_radius(2f32)
-            .bokeh(true)
-            .bokeh_focal_depth(0.45f32)
-            .bokeh_focal_width(0.4f32)
-            .color_offset((1f32, 1f32, 1f32, 1f32))
-            .build()
-            .unwrap();
-    }
 
     // run the engine update
     start_loop(event_loop, move |events| {
