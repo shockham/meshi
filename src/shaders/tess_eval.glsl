@@ -2,6 +2,7 @@
 
 uniform mat4 projection_matrix;
 uniform mat4 modelview_matrix;
+uniform sampler2D tex;
 
 layout(triangles, equal_spacing, ccw) in;
 
@@ -31,11 +32,13 @@ void main () {
         gl_in[1].gl_Position.xyz,
         gl_in[2].gl_Position.xyz);
 
+    vec2 tex_pos = tex_calc(tc_texture[0], tc_texture[1], tc_texture[2]);
+
+    float col_offset = length(texture(tex, tex_pos)) * 2;
+
+    position += vec3(0, 0, col_offset);
     te_pos = position;
-
-    vec2 texture = tex_calc(tc_texture[0], tc_texture[1], tc_texture[2]);
-    te_texture = texture;
-
+    te_texture = tex_pos;
     gl_Position = projection_matrix *
         modelview_matrix *
         vec4(position, 1.0);
