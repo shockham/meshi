@@ -1,14 +1,13 @@
 mod shaders;
 
-use caper::types::{RenderItemBuilder, TransformBuilder, MaterialBuilder, DefaultTag};
 use caper::game::*;
 use caper::imgui::Ui;
 use caper::input::Key;
-use caper::mesh::{gen_sphere, gen_quad};
-use caper::posteffect::PostShaderOptionsBuilder;
-use caper::utils::handle_fp_inputs;
 use caper::load_texture;
-
+use caper::mesh::{gen_quad, gen_sphere};
+use caper::posteffect::PostShaderOptionsBuilder;
+use caper::types::{DefaultTag, MaterialBuilder, RenderItemBuilder, TransformBuilder};
+use caper::utils::handle_fp_inputs;
 
 fn main() {
     let (mut game, event_loop) = Game::<DefaultTag>::new();
@@ -31,15 +30,15 @@ fn main() {
 
         game.renderer.shaders.textures.insert(
             "wil",
-            load_texture!("../assets/wil.png", &game.renderer.display)
+            load_texture!("../assets/wil.png", &game.renderer.display),
         );
         game.renderer.shaders.textures.insert(
             "jqa",
-            load_texture!("../assets/junior_qa.png", &game.renderer.display)
+            load_texture!("../assets/junior_qa.png", &game.renderer.display),
         );
         game.renderer.shaders.textures.insert(
             "mario",
-            load_texture!("../assets/mario.png", &game.renderer.display)
+            load_texture!("../assets/mario.png", &game.renderer.display),
         );
 
         game.renderer
@@ -64,14 +63,12 @@ fn main() {
                     .build()
                     .unwrap(),
             )
-            .instance_transforms(vec![
-                TransformBuilder::default()
-                    .pos((0f32, 0f32, 0f32))
-                    .rot((0f32, 0f32, 0f32, 1f32))
-                    .scale((5f32, 5f32, 5f32))
-                    .build()
-                    .unwrap(),
-            ])
+            .instance_transforms(vec![TransformBuilder::default()
+                .pos((0f32, 0f32, 0f32))
+                .rot((0f32, 0f32, 0f32, 1f32))
+                .scale((5f32, 5f32, 5f32))
+                .build()
+                .unwrap()])
             .build()
             .unwrap(),
     );
@@ -85,14 +82,12 @@ fn main() {
                     .build()
                     .unwrap(),
             )
-            .instance_transforms(vec![
-                TransformBuilder::default()
-                    .pos((15f32, 0f32, 0f32))
-                    .rot((0f32, 0f32, 0f32, 1f32))
-                    .scale((8f32, 8f32, 8f32))
-                    .build()
-                    .unwrap(),
-            ])
+            .instance_transforms(vec![TransformBuilder::default()
+                .pos((15f32, 0f32, 0f32))
+                .rot((0f32, 0f32, 0f32, 1f32))
+                .scale((8f32, 8f32, 8f32))
+                .build()
+                .unwrap()])
             .build()
             .unwrap(),
     );
@@ -106,14 +101,12 @@ fn main() {
                     .build()
                     .unwrap(),
             )
-            .instance_transforms(vec![
-                TransformBuilder::default()
-                    .pos((-15f32, 0f32, 0f32))
-                    .rot((0f32, 0f32, 0f32, 1f32))
-                    .scale((5f32, 5f32, 5f32))
-                    .build()
-                    .unwrap(),
-            ])
+            .instance_transforms(vec![TransformBuilder::default()
+                .pos((-15f32, 0f32, 0f32))
+                .rot((0f32, 0f32, 0f32, 1f32))
+                .scale((5f32, 5f32, 5f32))
+                .build()
+                .unwrap()])
             .build()
             .unwrap(),
     );
@@ -123,7 +116,6 @@ fn main() {
         game.update(
             |_: &Ui| {},
             |game: &mut Game<DefaultTag>| -> UpdateStatus {
-
                 // update the first person inputs
                 if game.input.hide_mouse {
                     handle_fp_inputs(&mut game.input, &mut game.cams[0]);

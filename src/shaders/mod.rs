@@ -1,5 +1,5 @@
-use caper::shader::{ default, texture };
 use caper::game::Game;
+use caper::shader::{default, texture};
 use caper::types::DefaultTag;
 
 pub fn add_custom_shaders(game: &mut Game<DefaultTag>) {
@@ -16,7 +16,6 @@ pub fn add_custom_shaders(game: &mut Game<DefaultTag>) {
         points::TESS_EVAL,
     );
 }
-
 
 mod points {
     /// tessellation control shader
