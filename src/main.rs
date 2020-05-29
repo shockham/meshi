@@ -38,8 +38,8 @@ fn main() {
             load_texture!("../assets/junior_qa.png", &game.renderer.display)
         );
         game.renderer.shaders.textures.insert(
-            "pete",
-            load_texture!("../assets/petey.png", &game.renderer.display)
+            "mario",
+            load_texture!("../assets/mario.png", &game.renderer.display)
         );
 
         game.renderer
@@ -87,9 +87,30 @@ fn main() {
             )
             .instance_transforms(vec![
                 TransformBuilder::default()
-                    .pos((0f32, 10f32, 0f32))
+                    .pos((15f32, 0f32, 0f32))
                     .rot((0f32, 0f32, 0f32, 1f32))
-                    .scale((10f32, 10f32, 1f32))
+                    .scale((8f32, 8f32, 8f32))
+                    .build()
+                    .unwrap(),
+            ])
+            .build()
+            .unwrap(),
+    );
+    game.add_render_item(
+        RenderItemBuilder::default()
+            .vertices(gen_sphere())
+            .material(
+                MaterialBuilder::default()
+                    .shader_name("points".to_string())
+                    .texture_name(Some("mario".to_string()))
+                    .build()
+                    .unwrap(),
+            )
+            .instance_transforms(vec![
+                TransformBuilder::default()
+                    .pos((-15f32, 0f32, 0f32))
+                    .rot((0f32, 0f32, 0f32, 1f32))
+                    .scale((5f32, 5f32, 5f32))
                     .build()
                     .unwrap(),
             ])
