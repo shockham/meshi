@@ -4,7 +4,7 @@ use caper::game::*;
 use caper::imgui::Ui;
 use caper::input::Key;
 use caper::load_texture;
-use caper::mesh::{gen_quad, gen_sphere};
+use caper::mesh::{gen_sphere_segments};
 use caper::posteffect::PostShaderOptionsBuilder;
 use caper::types::{DefaultTag, MaterialBuilder, RenderItemBuilder, TransformBuilder};
 use caper::utils::handle_fp_inputs;
@@ -29,16 +29,8 @@ fn main() {
             .unwrap();
 
         game.renderer.shaders.textures.insert(
-            "wil",
-            load_texture!("../assets/wil.png", &game.renderer.display),
-        );
-        game.renderer.shaders.textures.insert(
             "jqa",
             load_texture!("../assets/junior_qa.png", &game.renderer.display),
-        );
-        game.renderer.shaders.textures.insert(
-            "mario",
-            load_texture!("../assets/mario.png", &game.renderer.display),
         );
 
         game.renderer
@@ -55,7 +47,7 @@ fn main() {
     // create a vector of render items
     game.add_render_item(
         RenderItemBuilder::default()
-            .vertices(gen_sphere())
+            .vertices(gen_sphere_segments(20f32, 20f32))
             .material(
                 MaterialBuilder::default()
                     .shader_name("points".to_string())
@@ -65,44 +57,6 @@ fn main() {
             )
             .instance_transforms(vec![TransformBuilder::default()
                 .pos((0f32, 0f32, 0f32))
-                .rot((0f32, 0f32, 0f32, 1f32))
-                .scale((5f32, 5f32, 5f32))
-                .build()
-                .unwrap()])
-            .build()
-            .unwrap(),
-    );
-    game.add_render_item(
-        RenderItemBuilder::default()
-            .vertices(gen_quad())
-            .material(
-                MaterialBuilder::default()
-                    .shader_name("points".to_string())
-                    .texture_name(Some("wil".to_string()))
-                    .build()
-                    .unwrap(),
-            )
-            .instance_transforms(vec![TransformBuilder::default()
-                .pos((15f32, 0f32, 0f32))
-                .rot((0f32, 0f32, 0f32, 1f32))
-                .scale((8f32, 8f32, 8f32))
-                .build()
-                .unwrap()])
-            .build()
-            .unwrap(),
-    );
-    game.add_render_item(
-        RenderItemBuilder::default()
-            .vertices(gen_sphere())
-            .material(
-                MaterialBuilder::default()
-                    .shader_name("points".to_string())
-                    .texture_name(Some("mario".to_string()))
-                    .build()
-                    .unwrap(),
-            )
-            .instance_transforms(vec![TransformBuilder::default()
-                .pos((-15f32, 0f32, 0f32))
                 .rot((0f32, 0f32, 0f32, 1f32))
                 .scale((5f32, 5f32, 5f32))
                 .build()
