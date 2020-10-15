@@ -3,13 +3,24 @@ mod shaders;
 use caper::game::*;
 use caper::imgui::Ui;
 use caper::input::Key;
-use caper::load_texture;
+use caper::load_texture_dynamic;
 use caper::mesh::{gen_sphere_segments};
 use caper::posteffect::PostShaderOptionsBuilder;
 use caper::types::{DefaultTag, MaterialBuilder, RenderItemBuilder, TransformBuilder};
 use caper::utils::handle_fp_inputs;
+use std::env;
 
 fn main() {
+    let texture_path = match env::args().last() {
+        Some(tex) => tex,
+        None => {
+            println!("Usage: meshi PATH");
+            return;
+        }
+    };
+
+    println!("rendering: {}", texture_path);
+
     let (mut game, event_loop) = Game::<DefaultTag>::new();
     let mut debug_mode = false;
 
@@ -30,7 +41,7 @@ fn main() {
 
         game.renderer.shaders.textures.insert(
             "jqa",
-            load_texture!("../assets/junior_qa.png", &game.renderer.display),
+            load_texture_dynamic!(texture_path, &game.renderer.display),
         );
 
         game.renderer
