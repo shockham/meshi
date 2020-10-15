@@ -1,5 +1,4 @@
 # Meshi
-====
 
 Generate 3d point rendered meshes from a png.
 
