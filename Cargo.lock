@@ -182,9 +182,9 @@ dependencies = [
 
 [[package]]
 name = "caper"
-version = "0.12.2"
+version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "85c51a531165012b9f0f7d973860b2127419329767292ec2be7890950028d73d"
+checksum = "236b9d78776585b38839f0b3448d1cb8bf194b50af7510243f54224feb85786f"
 dependencies = [
  "bincode",
  "derive_builder",
