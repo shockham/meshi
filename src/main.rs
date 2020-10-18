@@ -4,7 +4,7 @@ use caper::game::*;
 use caper::imgui::Ui;
 use caper::input::Key;
 use caper::load_texture_dynamic;
-use caper::mesh::{gen_sphere_segments, gen_quad, gen_cube};
+use caper::mesh::{gen_cube, gen_quad, gen_sphere_segments};
 use caper::posteffect::PostShaderOptionsBuilder;
 use caper::types::{DefaultTag, MaterialBuilder, RenderItemBuilder, TransformBuilder};
 use caper::utils::handle_fp_inputs;
@@ -85,7 +85,6 @@ fn main() {
                 if game.input.hide_mouse {
                     handle_fp_inputs(&mut game.input, &mut game.cams[0]);
                 }
-
 
                 // change the primitive
                 if game.input.keys_pressed.contains(&Key::Z) {
