@@ -89,10 +89,13 @@ fn main() {
                 // change the primitive
                 if game.input.keys_pressed.contains(&Key::Z) {
                     game.get_render_item(0).vertices = gen_sphere_segments(20f32, 20f32);
+                    game.get_render_item(0).instance_transforms[0].scale = (5f32, 5f32, 5f32);
                 } else if game.input.keys_pressed.contains(&Key::X) {
                     game.get_render_item(0).vertices = gen_quad();
+                    game.get_render_item(0).instance_transforms[0].scale = (10f32, 10f32, 10f32);
                 } else if game.input.keys_pressed.contains(&Key::C) {
                     game.get_render_item(0).vertices = gen_cube();
+                    game.get_render_item(0).instance_transforms[0].scale = (8f32, 8f32, 8f32);
                 }
 
                 // screenshot

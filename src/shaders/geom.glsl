@@ -1,7 +1,7 @@
 #version 330
 
 uniform vec2 viewport;
-const float SIZE = 0.2;
+const float SIZE = 0.26;
 
 layout(triangles) in;
 layout(triangle_strip, max_vertices=24) out;
