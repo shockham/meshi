@@ -2,8 +2,8 @@ image: alpine/edge
 packages:
   - rust
   - cargo
-  - pkgconf
   - alsa-lib
+  - alsa-lib-dev
 sources:
   - https://git.sr.ht/~shockham/meshi
 tasks:
