@@ -1,0 +1,13 @@
+image: alpine/edge
+packages:
+  - rust
+  - cargo
+sources:
+  - https://git.sr.ht/~shockham/meshi
+tasks:
+  - build: |
+      cd meshi
+      cargo build
+  - test: |
+      cd meshi
+      cargo test
