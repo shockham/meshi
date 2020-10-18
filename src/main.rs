@@ -4,7 +4,7 @@ use caper::game::*;
 use caper::imgui::Ui;
 use caper::input::Key;
 use caper::load_texture_dynamic;
-use caper::mesh::{gen_sphere_segments};
+use caper::mesh::{gen_sphere_segments, gen_quad, gen_cube};
 use caper::posteffect::PostShaderOptionsBuilder;
 use caper::types::{DefaultTag, MaterialBuilder, RenderItemBuilder, TransformBuilder};
 use caper::utils::handle_fp_inputs;
@@ -84,6 +84,16 @@ fn main() {
                 // update the first person inputs
                 if game.input.hide_mouse {
                     handle_fp_inputs(&mut game.input, &mut game.cams[0]);
+                }
+
+
+                // change the primitive
+                if game.input.keys_pressed.contains(&Key::Z) {
+                    game.get_render_item(0).vertices = gen_sphere_segments(20f32, 20f32);
+                } else if game.input.keys_pressed.contains(&Key::X) {
+                    game.get_render_item(0).vertices = gen_quad();
+                } else if game.input.keys_pressed.contains(&Key::C) {
+                    game.get_render_item(0).vertices = gen_cube();
                 }
 
                 // screenshot
