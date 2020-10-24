@@ -2,6 +2,7 @@
 
 uniform vec2 viewport;
 const float SIZE = 0.26;
+const float ROUNDING = 0.7;
 
 layout(triangles) in;
 layout(triangle_strip, max_vertices=24) out;
@@ -23,8 +24,8 @@ void emit (int i, vec4 diff) {
 }
 
 void prim (int i, float x, float y) {
-    float s_x = x * 0.7;
-    float s_y = y * 0.7;
+    float s_x = x * ROUNDING;
+    float s_y = y * ROUNDING;
 
     emit(i, vec4(0));
     emit(i, vec4(x, 0, 0, 0));
@@ -38,8 +39,8 @@ void prim (int i, float x, float y) {
 }
 
 void i_prim (int i, float x, float y) {
-    float s_x = x * 0.8;
-    float s_y = y * 0.8;
+    float s_x = x * ROUNDING;
+    float s_y = y * ROUNDING;
 
     emit(i, vec4(s_x, s_y, 0, 0));
     emit(i, vec4(x, 0, 0, 0));
