@@ -1,6 +1,7 @@
 #version 330
 
 uniform vec2 viewport;
+uniform sampler2D tex;
 const float SIZE = 0.26;
 const float ROUNDING = 0.7;
 
@@ -23,7 +24,7 @@ void emit (int i, vec4 diff) {
     EmitVertex();
 }
 
-void prim (int i, float x, float y) {
+void prim (int i, float x, float y, vec4 col) {
     float s_x = x * ROUNDING;
     float s_y = y * ROUNDING;
 
@@ -38,7 +39,7 @@ void prim (int i, float x, float y) {
     EndPrimitive();
 }
 
-void i_prim (int i, float x, float y) {
+void i_prim (int i, float x, float y, vec4 col) {
     float s_x = x * ROUNDING;
     float s_y = y * ROUNDING;
 
@@ -57,9 +58,14 @@ void main(void) {
     float vy_size = SIZE * (viewport.x / viewport.y);
 
     for(int i = 0; i < gl_in.length(); i++){
-        prim(i, SIZE, vy_size);
-        i_prim(i, -SIZE, vy_size);
-        i_prim(i, SIZE, -vy_size);
-        prim(i, -SIZE, -vy_size);
+        vec4 col = texture(tex, te_texture[i]);
+
+        float x_size = SIZE * (col.x + 0.5);
+        vy_size *= (col.y + 0.5);
+
+        prim(i, x_size, vy_size, col);
+        i_prim(i, -x_size, vy_size, col);
+        i_prim(i, x_size, -vy_size, col);
+        prim(i, -x_size, -vy_size, col);
     }
 }
