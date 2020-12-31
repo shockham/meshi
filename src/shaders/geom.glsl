@@ -15,11 +15,13 @@ in vec2 te_texture[];
 out vec3 g_normal;
 out vec3 g_pos;
 out vec2 g_texture;
+out vec2 g_diff;
 
 void emit (int i, vec4 diff) {
     g_normal = te_normal[i];
     g_pos = te_pos[i] + diff.xyz;
     g_texture = te_texture[i];
+    g_diff = diff.xy;
     gl_Position = gl_in[i].gl_Position + diff;
     EmitVertex();
 }
