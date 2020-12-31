@@ -33,10 +33,15 @@ void main() {
 
     float dist = abs(distance(cam_pos, g_pos)) / 80.0;
 
-    float alpha = cos(g_diff.x * 2 * M_PI) + cos(g_diff.y * 2 * M_PI);
-    alpha += smoothstep(0.2, 0.8, rand(g_pos.xy));
+    float smoothed_diff = 1.0 - (
+        smoothstep(0, 1, cos(g_diff.x * 1.5 * M_PI) + cos(g_diff.y * 1.5 * M_PI))
+        * 0.1
+    );
+    float noise = smoothstep(0.0, 0.2, rand(g_pos.xy));
 
-    vec4 lighting_col = vec4(vec3((0.6 * avg_lum) + (0.4 * dist)), alpha);
+    vec4 lighting_col = vec4(vec3((0.6 * avg_lum) + (0.4 * dist)), 1.0);
 
-    frag_output = texture(tex, g_texture) * lighting_col;
+    vec4 tex_col = texture(tex, g_texture);
+
+    frag_output = vec4(tex_col.rgb * noise * smoothed_diff, tex_col.a) * lighting_col;
 }

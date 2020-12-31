@@ -2,7 +2,7 @@
 
 uniform vec2 viewport;
 uniform sampler2D tex;
-const float SIZE = 0.26;
+const float SIZE = 0.5;
 const float ROUNDING = 0.7;
 
 layout(triangles) in;
