@@ -60,8 +60,8 @@ void main(void) {
     for(int i = 0; i < gl_in.length(); i++){
         vec4 col = texture(tex, te_texture[i]);
 
-        float x_size = SIZE * (col.x + 0.5);
-        vy_size *= (col.y + 0.5);
+        float x_size = SIZE * (length(col.xy) * 0.4 + 0.8);
+        vy_size *= length(col.yz) * 0.4 + 0.8;
 
         prim(i, x_size, vy_size, col);
         i_prim(i, -x_size, vy_size, col);
