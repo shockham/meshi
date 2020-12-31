@@ -1,5 +1,5 @@
 use caper::game::Game;
-use caper::shader::{default, texture};
+use caper::shader::default;
 use caper::types::DefaultTag;
 
 pub fn add_custom_shaders(game: &mut Game<DefaultTag>) {
@@ -10,7 +10,7 @@ pub fn add_custom_shaders(game: &mut Game<DefaultTag>) {
         display,
         "points",
         default::gl330::VERT,
-        texture::gl330::FRAG,
+        points::FRAG,
         points::GEOM,
         points::TESS_CONTROL,
         points::TESS_EVAL,
@@ -24,4 +24,6 @@ mod points {
     pub const TESS_EVAL: &'static str = include_str!("./tess_eval.glsl");
     /// geometry shader
     pub const GEOM: &'static str = include_str!("./geom.glsl");
+    /// fragment shader
+    pub const FRAG: &'static str = include_str!("./frag.glsl");
 }
